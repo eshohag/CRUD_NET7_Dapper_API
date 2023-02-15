@@ -7,7 +7,9 @@ public class DbConnectionSettings
     public string UserId { get; set; }
     public string Password { get; set; }
     public string TrustedConnection { get; set; }
+    public string IntegratedSecurity { get; set; }
     public string TrustServerCertificate { get; set; }
+    public string Encrypt { get; set; }
     public string MultipleActiveResultSets { get; set; }
     public string PersistSecurityInfo { get; set; }
     public string ConnectionTimeout { get; set; }

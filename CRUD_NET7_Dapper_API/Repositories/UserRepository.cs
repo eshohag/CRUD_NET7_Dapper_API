@@ -15,9 +15,9 @@ namespace CRUD_NET7_Dapper_API.Repositories
 
     public class UserRepository : IUserRepository
     {
-        private ApplicationDbContext _context;
+        private AppDbContext _context;
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(AppDbContext context)
         {
             _context = context;
         }

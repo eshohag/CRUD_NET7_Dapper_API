@@ -40,6 +40,7 @@ namespace CRUD_NET7_Dapper_API.Helpers
                         // not found error
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;
+
                     default:
                         // unhandled error
                         _logger.LogError(error, error.Message);

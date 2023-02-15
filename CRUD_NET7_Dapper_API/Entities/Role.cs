@@ -1,7 +1,9 @@
-namespace CRUD_NET7_Dapper_API.Entities;
-
-public enum Role
+namespace CRUD_NET7_Dapper_API.Entities
 {
-    Admin,
-    User
+    public enum Role
+    {
+        Admin,
+        User
+    }
 }
+

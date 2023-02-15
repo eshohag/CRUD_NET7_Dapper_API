@@ -1,6 +1,7 @@
 using CRUD_NET7_Dapper_API.Helpers;
 using CRUD_NET7_Dapper_API.Repositories;
 using CRUD_NET7_Dapper_API.Services;
+using Microsoft.AspNetCore.Builder;
 using System.Text.Json.Serialization;
 
 namespace CRUD_NET7_Dapper_API
@@ -13,7 +14,6 @@ namespace CRUD_NET7_Dapper_API
 
             // add services to DI container
             var services = builder.Services;
-            var env = builder.Environment;
 
             services.AddCors();
             services.AddControllers().AddJsonOptions(x =>
@@ -25,23 +25,29 @@ namespace CRUD_NET7_Dapper_API
                 x.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
             });
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
             // configure strongly typed settings object
             services.Configure<DbConnectionSettings>(builder.Configuration.GetSection("DbConnectionSettings"));
 
             // configure DI for application services
-            services.AddSingleton<ApplicationDbContext>();
+            services.AddSingleton<AppDbContext>();
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
-
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
 
             var app = builder.Build();
+            // Configure the HTTP request pipeline.
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
 
             // ensure database and tables exist
             using var scope = app.Services.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
             await context.Init();
-
 
             // configure HTTP request pipeline
             // global cors policy
