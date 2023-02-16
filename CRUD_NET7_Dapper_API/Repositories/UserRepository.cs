@@ -26,8 +26,8 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            SELECT * FROM Users
-        """;
+                        SELECT * FROM Users
+                    """;
             return await connection.QueryAsync<User>(sql);
         }
 
@@ -35,9 +35,9 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            SELECT * FROM Users 
-            WHERE Id = @id
-        """;
+                    SELECT * FROM Users 
+                    WHERE Id = @id
+                """;
             return await connection.QuerySingleOrDefaultAsync<User>(sql, new { id });
         }
 
@@ -45,9 +45,9 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            SELECT * FROM Users 
-            WHERE Email = @email
-        """;
+                    SELECT * FROM Users 
+                    WHERE Email = @email
+                """;
             return await connection.QuerySingleOrDefaultAsync<User>(sql, new { email });
         }
 
@@ -55,9 +55,9 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            INSERT INTO Users (Title, FirstName, LastName, Email, Role, PasswordHash)
-            VALUES (@Title, @FirstName, @LastName, @Email, @Role, @PasswordHash)
-        """;
+                    INSERT INTO Users (Title, FirstName, LastName, Email, Role, PasswordHash)
+                    VALUES (@Title, @FirstName, @LastName, @Email, @Role, @PasswordHash)
+                """;
             await connection.ExecuteAsync(sql, user);
         }
 
@@ -65,15 +65,15 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            UPDATE Users 
-            SET Title = @Title,
-                FirstName = @FirstName,
-                LastName = @LastName, 
-                Email = @Email, 
-                Role = @Role, 
-                PasswordHash = @PasswordHash
-            WHERE Id = @Id
-        """;
+                    UPDATE Users 
+                    SET Title = @Title,
+                        FirstName = @FirstName,
+                        LastName = @LastName, 
+                        Email = @Email, 
+                        Role = @Role, 
+                        PasswordHash = @PasswordHash
+                    WHERE Id = @Id
+                """;
             await connection.ExecuteAsync(sql, user);
         }
 
@@ -81,9 +81,9 @@ namespace CRUD_NET7_Dapper_API.Repositories
         {
             using var connection = _context.CreateConnection();
             var sql = """
-            DELETE FROM Users 
-            WHERE Id = @id
-        """;
+                    DELETE FROM Users 
+                    WHERE Id = @id
+                """;
             await connection.ExecuteAsync(sql, new { id });
         }
     }

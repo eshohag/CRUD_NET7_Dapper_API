@@ -1,7 +1,6 @@
 using CRUD_NET7_Dapper_API.Helpers;
 using CRUD_NET7_Dapper_API.Repositories;
 using CRUD_NET7_Dapper_API.Services;
-using Microsoft.AspNetCore.Builder;
 using System.Text.Json.Serialization;
 
 namespace CRUD_NET7_Dapper_API

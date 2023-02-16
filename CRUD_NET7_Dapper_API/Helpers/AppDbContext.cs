@@ -16,11 +16,7 @@ namespace CRUD_NET7_Dapper_API.Helpers
 
         public IDbConnection CreateConnection()
         {
-            var connectionString = $"Server={_dbSettings.Server}; Database={_dbSettings.Database}; User Id={_dbSettings.UserId}; Password={_dbSettings.Password};";
-            //var connectionString = $"Server={_dbSettings.Server};Database={_dbSettings.Database};User ID={_dbSettings.UserId};Password={_dbSettings.Password};Trusted_Connection={_dbSettings.TrustedConnection};TrustServerCertificate={_dbSettings.TrustServerCertificate};Encrypt={_dbSettings.Encrypt};MultipleActiveResultSets={_dbSettings.MultipleActiveResultSets}; Persist Security Info={_dbSettings.PersistSecurityInfo}; Connection Timeout={_dbSettings.ConnectionTimeout};";
-            //var connectionString = $"Server=SHOHAG-PC;Database=DapperNet7DB;User ID=sa;Password=SqlDev2019;MultipleActiveResultSets=true;";
-            //var connectionString = $"Data Source=SHOHAG-PC;Initial Catalog=DapperNet7DB;Integrated Security=False;Persist Security Info=False;User ID=sa;Password=SqlDev2019";
-            //var connectionString = $"Server=SHOHAG-PC;Database=DapperNet7DB;Trusted_Connection=True;encrypt=false";
+            var connectionString = $"Server={_dbSettings.ServerHostOrUrl};Database={_dbSettings.Database};User ID={_dbSettings.UserId};Password={_dbSettings.Password};Trusted_Connection={_dbSettings.TrustedConnection};TrustServerCertificate={_dbSettings.TrustServerCertificate};Encrypt={_dbSettings.Encrypt};MultipleActiveResultSets={_dbSettings.MultipleActiveResultSets};Persist Security Info={_dbSettings.PersistSecurityInfo};Pooling={_dbSettings.Pooling};Connection Timeout={_dbSettings.ConnectionTimeout};";
             return new SqlConnection(connectionString);
         }
 
@@ -33,7 +29,8 @@ namespace CRUD_NET7_Dapper_API.Helpers
         private async Task _initDatabase()
         {
             // create database if it doesn't exist
-            using (var connection = CreateConnection())
+            var connectionString = $"Server={_dbSettings.ServerHostOrUrl};Database=master;User ID={_dbSettings.UserId};Password={_dbSettings.Password};Trusted_Connection={_dbSettings.TrustedConnection};TrustServerCertificate={_dbSettings.TrustServerCertificate};Encrypt={_dbSettings.Encrypt};MultipleActiveResultSets={_dbSettings.MultipleActiveResultSets};Persist Security Info={_dbSettings.PersistSecurityInfo};Pooling={_dbSettings.Pooling};Connection Timeout={_dbSettings.ConnectionTimeout};";
+            using (var connection = new SqlConnection(connectionString))
             {
                 var sql = $"IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{_dbSettings.Database}') CREATE DATABASE [{_dbSettings.Database}];";
                 await connection.ExecuteAsync(sql);
