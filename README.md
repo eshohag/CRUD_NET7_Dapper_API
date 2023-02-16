@@ -1,4 +1,4 @@
-# .NET 7.0 + Dapper + MS SQL Server - CRUD API in ASP.NET Core
+# .NET 7.0 + Dapper + MS SQL Server - CRUD API
 
 
 ### Dapper ORM (Object Relational Mapper)
